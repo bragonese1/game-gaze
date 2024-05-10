@@ -87,14 +87,14 @@ h4{
 }
 
 /* LOGO */
-.icon{
+.logo{
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
 
 @media screen and (min-width: 768px){
-    .icon{
+    .logo{
         width: 60px;
         height: 60px;
 
@@ -102,10 +102,17 @@ h4{
 }
 
 @media screen and (min-width: 1024px){
-    .icon{
+    .logo{
         width: 70px;
         height: 70px;
     }
+}
+
+/* ICON */
+.icon{
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
 }
 
 /* LIST */
@@ -147,6 +154,10 @@ h4{
     justify-content: space-between;
 }
 
+.align-items-center{
+    align-items: center;
+}
+
 /* CONTAINER */
 .container{
     margin-top: 30px;
@@ -174,5 +185,41 @@ h4{
 @media screen and (min-width: 768px){
     .game-card{
         width: 180px;
+    }
+}
+
+/* GAME SEARCH */
+.game-search{
+    border: 1px solid lightgrey;
+    border-radius: 20px;
+}
+.game-search input{
+    width: 100%;
+    padding: 10px;
+    border: 0;
+    margin-left: 10px;
+}
+
+.game-search input:focus{
+    outline: none;
+}
+
+/* BUTTON */
+.btn{
+    margin: 20px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 0;
+    font-weight: bold;
+}
+
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+@media screen and (min-width: 768px){
+    .btn{
+        font-size: 1.7rem;
     }
 }
