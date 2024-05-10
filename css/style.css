@@ -71,3 +71,65 @@ h4{
         font-size: 2.5rem;
     }
 }
+
+/* LINK */
+.link:hover{
+    cursor: pointer;
+}
+
+/* LOGO */
+.icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+@media screen and (min-width: 768px){
+    .icon{
+        width: 60px;
+        height: 60px;
+
+    }
+}
+
+@media screen and (min-width: 1024px){
+    .icon{
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* LIST */
+.list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item{
+    margin-left: 2rem;
+}
+
+.list-item:first-child{
+    margin-left: 0;
+}
+
+.list-row .list-item{
+    margin: 0;
+    margin-top: 2rem;
+}
+
+.list-row .list-item:first-child{
+    margin-top: 0;
+}
+
+/* DISPLAY */
+.d-flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.d-flex-col{
+    display: flex;
+    flex-direction: column;
+}
