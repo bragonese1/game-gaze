@@ -10,6 +10,7 @@ html{
 
 body{
     font-size: 1.3rem;
+    margin: 0;
 }
 
 h1, h2, h3, h4, p{
@@ -73,8 +74,16 @@ h4{
 }
 
 /* LINK */
+.link{
+    text-decoration: none;
+}
+
 .link:hover{
     cursor: pointer;
+}
+
+.link:visited{
+    color: black;
 }
 
 /* LOGO */
@@ -132,4 +141,38 @@ h4{
 .d-flex-col{
     display: flex;
     flex-direction: column;
+}
+
+.justify-content-between{
+    justify-content: space-between;
+}
+
+/* CONTAINER */
+.container{
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+/* GAME CARD */
+.game-card{
+    width: 120px;
+    border: 1px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 5px 5px 10px lightgrey;
+    transition: transform 0.2s ease-in;
+}
+
+.game-card:hover{
+    transform: scale(1.2);
+}
+
+.game-card__content{
+    margin: 10px 5px;
+}
+
+@media screen and (min-width: 768px){
+    .game-card{
+        width: 180px;
+    }
 }
