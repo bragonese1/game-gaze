@@ -1,7 +1,8 @@
 :root{
     --icon-bg-color: #cbcbcb;
     --font-color-primary: #fff;
-    --font-color-secondary: #6b6b6b;
+    --font-color-secondary: #ababab;
+    --bg-color-secondary: #6b6b6b;
     --container-bg-color: #202020;
 }
 
@@ -110,8 +111,8 @@ h4{
 
 @media screen and (min-width: 1024px){
     .logo{
-        width: 70px;
-        height: 70px;
+        width: 90px;
+        height: 90px;
     }
 }
 
@@ -127,14 +128,6 @@ h4{
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.list-item{
-    margin-left: 2rem;
-}
-
-.list-item:first-child{
-    margin-left: 0;
 }
 
 .list-row .list-item{
@@ -213,7 +206,7 @@ h4{
 
 .game-card__explore p{
     margin-left: 5px;
-    transition: margin-left 0.8s;
+    transition: margin-left 0.2s;
 }
 
 .game-card__platforms, .game-card__title, .game-card__brief-info{
@@ -277,25 +270,9 @@ h4{
     }
 }
 
-/* GAME SEARCH */
-.game-search{
-    border: 1px solid lightgrey;
-    border-radius: 20px;
-}
-.game-search input{
-    width: 100%;
-    padding: 10px;
-    border: 0;
-    margin-left: 10px;
-}
-
-.game-search input:focus{
-    outline: none;
-}
-
 /* BUTTON */
 .btn{
-    margin: 20px;
+    margin: 10px auto;
     padding: 10px 20px;
     border-radius: 15px;
     border: 0;
@@ -310,5 +287,145 @@ h4{
 @media screen and (min-width: 768px){
     .btn{
         font-size: 1.7rem;
+    }
+}
+
+/* HEADER */
+header{
+    background-color: black;
+    padding: 10px;
+}
+
+.header-top{
+    display: flex;
+    align-items: center;
+}
+
+.game-search{
+    /* border: 1px solid lightgrey; */
+    background-color: var(--bg-color-secondary);
+    border-radius: 20px;
+    height: 30px;
+    overflow: hidden;
+    margin: 0 10px;
+}
+
+.game-search:hover{
+    background-color: white;
+    input{
+        background-color: white;
+        color: black;
+    }
+}
+
+::placeholder{
+    color: var(--font-color-secondary);
+}
+
+.game-search input{
+    background-color: var(--bg-color-secondary);
+    color: var(--font-color-secondary);
+    width: 100vw;
+    max-width: 900px;
+    padding: 10px;
+    border: 0;
+}
+
+input:focus{
+    outline: none;
+    background-color: white;
+    color: black;
+}
+
+/* MENU-TOGGLE */
+.menu-toggle:hover, .menu-toggle__btn-close{
+    cursor: pointer;
+}
+
+.menu-toggle__btn-close{
+    position: absolute;
+    top: 20px;
+    right: 45px;
+}
+
+.menu-toggle__btn-close .bar-1{
+    rotate: 45deg;
+}
+
+.menu-toggle__btn-close .bar-2{
+    position: absolute;
+    top: 0;
+    rotate: 135deg;
+}
+
+.bar-1, .bar-2, .bar-3{
+    height: 5px;
+    width: 35px;
+    background-color: white;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.overlay{
+    height: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.9);
+    overflow-y: hidden;
+    transition: 0.5s
+}
+
+.overlay-content{
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+@media screen and (min-width: 1024px){
+    header{
+        position: absolute;
+        width: 350px;
+        height: 100vh;
+    }
+
+    .header-top{
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .game-search{
+        margin: 20px auto;
+    }
+
+    .game-search input{
+        width: 300px;
+    }
+
+    .menu-toggle{
+        display: none;
+    }
+
+    .menu-toggle__btn-close{
+        display: none;
+    }
+
+    .overlay{
+        background-color: unset;
+        height: auto;
+    }
+
+    .overlay, .overlay-content{
+        position:unset;
+        text-align: unset;
+    }
+
+    .overlay-content{
+        margin-top: 5px;
     }
 }
