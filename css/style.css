@@ -172,14 +172,25 @@ h4{
 }
 
 /* GAME CARD */
+.game-card-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .game-card{
-    width: 100%;
+    /* width: 100%; */
     max-width: 500px;
     /* border: 1px solid black; */
     background-color: var(--container-bg-color);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 5px 5px 10px lightgrey;
+}
+
+.game-card__img{
+    width: 100vw;
+    max-width: 500px;
 }
 
 .game-card__content{
