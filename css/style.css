@@ -179,9 +179,7 @@ h4{
 }
 
 .game-card{
-    /* width: 100%; */
     max-width: 500px;
-    /* border: 1px solid black; */
     background-color: var(--container-bg-color);
     border-radius: 20px;
     overflow: hidden;
@@ -255,6 +253,26 @@ h4{
         width: 180px;
     }
 } */
+
+@media screen and (min-width: 1024px){
+    .game-card-container{
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .game-card{
+        margin: 20px;
+        transition: transform 0.4s;
+    }
+
+    .game-card:hover{
+        transform: scale(1.1);
+    }
+
+    .game-card__img{
+        width: 320px;
+    }
+}
 
 /* GAME SEARCH */
 .game-search{
