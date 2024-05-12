@@ -379,6 +379,14 @@ input:focus{
     transition: 0.5s
 }
 
+.overlay.close{
+    height: 0;
+}
+
+.overlay.open {
+    height: 100%;
+}
+
 .overlay-content{
     position: relative;
     top: 25%;
@@ -415,7 +423,7 @@ input:focus{
         display: none;
     }
 
-    .overlay{
+    .overlay, .overlay.open, .overlay.closed{
         background-color: unset;
         height: auto;
     }
