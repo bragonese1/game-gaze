@@ -5,19 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Gaze</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="./images/game-gaze-logo.jpeg">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
 
-    <button class="btn">
-        Button
-    </button>
+    <div class="game-card d-flex-col">
+        <img src="./images/game-gaze-logo.jpeg" alt="">
+        <div class="game-card__content d-flex-col">
+            <ul class="list game-card__platforms d-flex-row">
+                <li class="list-item">
+                    <img src="./images/android-logo.png" class="platform-icon" alt="">
+                </li>
+                <li class="list-item">
+                    <img src="./images/mac-os-logo.png" class="platform-icon" alt="">
+                </li>
+                <li class="list-item">
+                    <img src="./images/playstation-logotype.png" class="platform-icon" alt="">
+                </li>
+                <li class="list-item">
+                    <img src="./images/xbox-logo.png" class="platform-icon" alt="">
+                </li>
+                <li class="list-item">
+                    <div class="platform-icon__nintendo">N</div>
+                </li>
+            </ul>
+            <h2 class="game-card__title">Game Gaze</h2>
+            <ul class="list game-card__brief-info">
+                <li class="list-item d-flex-row justify-content-between">
+                    <p class="game-card__brief-info__title">Release date:</p>
+                    <p class="game-card__brief-info__content">Jan 1, 2024</p>     
+                </li>
+                <li class="list-item d-flex-row justify-content-between">
+                    <p class="game-card__brief-info__title">Genres:</p>
+                    <p class="game-card__brief-info__content">Action, RPG</p>
+                </li>
+                <li class="list-item d-flex-row justify-content-between">
+                    <p class="game-card__brief-info__title">Chart:</p>
+                    <p class="game-card__brief-info__content">#1 Top 2024</p>
+                </li>
+            </ul>
+            <div class="game-card__explore d-flex-row">
+                <a href="#" class="link">EXPLORE MORE</a>
+                <p >></p>
+            </div>
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- <script src="./js/main.js"></script> -->
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

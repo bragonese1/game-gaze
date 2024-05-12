@@ -1,3 +1,10 @@
+:root{
+    --icon-bg-color: #cbcbcb;
+    --font-color-primary: #fff;
+    --font-color-secondary: #6b6b6b;
+    --container-bg-color: #202020;
+}
+
 *{
     box-sizing: border-box;
 }
@@ -166,27 +173,77 @@ h4{
 
 /* GAME CARD */
 .game-card{
-    width: 120px;
-    border: 1px solid black;
+    width: 100%;
+    max-width: 500px;
+    /* border: 1px solid black; */
+    background-color: var(--container-bg-color);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 5px 5px 10px lightgrey;
-    transition: transform 0.2s ease-in;
-}
-
-.game-card:hover{
-    transform: scale(1.2);
 }
 
 .game-card__content{
-    margin: 10px 5px;
+    color: white;
+    margin: 15px;
 }
 
-@media screen and (min-width: 768px){
+.game-card__explore{
+    align-self: center;
+}
+
+.game-card__explore .link{
+    color: var(--font-color-primary);
+}
+
+.game-card__explore:hover p{
+    margin-left: 10px;
+}
+
+.game-card__explore p{
+    margin-left: 5px;
+    transition: margin-left 0.8s;
+}
+
+.game-card__platforms, .game-card__title, .game-card__brief-info{
+    margin-bottom: 10px;
+}
+
+.game-card__platforms .list-item{
+    margin-left: 8px;
+}
+
+.game-card__platforms .list-item:first-child{
+    margin-left: 0;
+}
+
+.game-card__brief-info .list-item{
+    margin: 0;
+}
+
+.game-card__brief-info__title{
+    color: var(--font-color-secondary);
+}
+
+.platform-icon{
+    color: var(--font-color-primary);
+    width: 17px;
+    height: 17px;
+}
+
+.platform-icon__nintendo{
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    border: 1px solid white;
+    padding: 1px 3px;
+    border-radius: 5px;
+}
+
+/* @media screen and (min-width: 768px){
     .game-card{
         width: 180px;
     }
-}
+} */
 
 /* GAME SEARCH */
 .game-search{
