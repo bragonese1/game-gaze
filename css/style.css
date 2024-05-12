@@ -179,6 +179,7 @@ h4{
 }
 
 .game-card{
+    margin-bottom: 20px;
     max-width: 500px;
     background-color: var(--container-bg-color);
     border-radius: 20px;
@@ -188,7 +189,9 @@ h4{
 
 .game-card__img{
     width: 100vw;
+    height: 80vw;
     max-width: 500px;
+    max-height: 300px;
 }
 
 .game-card__content{
