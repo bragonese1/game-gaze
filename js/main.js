@@ -175,6 +175,44 @@ const listGamesSearch = function (input) {
   })
 }
 
+// 4: PC
+// 187, 18, 16, 15, 27: PS 5, PS 4
+// 1, 186, 14, 80: xbox 1, xbox series s/x, 360
+// 7, 8, 9, 13: nintendo switch, nintendo 3DS + DS + DSi
+// 21: android
+// 5: macOS
+// $.ajax({
+//   // url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platfor}`
+//   url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
+//   method: "GET"
+// }).then(function (res){
+//   console.log(res);
+// });
+
+genreList.on("click", ".btn", function(event){
+  let id = $(event.target).attr("id");
+  id = id.split("-")[1];
+  sectionTitle.text("")
+  console.log(id);
+  fetchGenreGames(id);
+});
+
+
+/**
+ * fetchGenreGames fetch data based on selected genre
+ * 
+ * @param {string} genre game
+ */
+const fetchGenreGames = function(genre){
+  $.ajax({
+    url: `https://api.rawg.io/api/games?key=${myAPI}&genres=${genre}`,
+    method: "GET"
+  }).then(function (res){
+    console.log(res);
+    displayGameCard(res.results);
+  });
+}
+
 const openNav = function () {
   $("#menu").removeClass("closed").addClass("open");
 };
