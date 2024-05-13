@@ -11,6 +11,7 @@ $.ajax({
   url: `https://api.rawg.io/api/games?key=${myAPI}`,
   method: "GET",
 }).then(function (res) {
+  $("#load").css("display", "none");
   console.log(res);
   displayGameCard(res.results);
 });
