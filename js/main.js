@@ -16,7 +16,11 @@ $.ajax({
   displayGameCard(res.results);
 });
 
-// game data
+/**
+ * displayGameCard read a given data then display all games on the brower.
+ * 
+ * @param {object} gameData 
+ */
 function displayGameCard(gameData) {
   gameCardContainer.empty();
   // working on game platforms and game genres
@@ -56,7 +60,21 @@ function displayGameCard(gameData) {
   });
 }
 
-// 0: PC 1: PlayStation 2: Xbox 3: macOS 4: Nintendo 5: Android
+
+/**
+ * displayPlatformList reads data from a game and display all platforms requirement on browers.
+ * To avoid duplicating platforms, displayPlatformList generate an array to keep track which plat-
+ * form that has been displayed. The following index will indicate a platform:
+ * [0]: PC or Windows
+ * [1]: PlayStation
+ * [2]: Xbox
+ * [3]: macOS
+ * [4]: Nintendo
+ * [5]: Android
+ * 
+ * @param {array} platforms a list platform of a game
+ * @returns a list of li elements containing game platforms of a particular game
+ */
 function displayPlatformList(platforms) {
   var platformContainer = [];
   const visitedPlatform = [false, false, false, false, false, false];
