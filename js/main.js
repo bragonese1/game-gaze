@@ -25,8 +25,7 @@ $.ajax({
  * 
  * @param {object} gameData 
  */
-const displayGameCard = function (gameData) {
-  gameCardContainer.empty();
+const displayGameCard = function (gameData) {  
   // working on game platforms and game genres
   gameData.forEach(function (game) {
     const gameCard = $(`
@@ -192,6 +191,8 @@ const listGamesSearch = function (input) {
 genreList.on("click", ".btn", function(event){
   let id = $(event.target).attr("id");
   id = id.split("-")[1];
+  gameCardContainer.empty();
+  $("#load").css("display", "block");
   sectionTitle.text("")
   console.log(id);
   fetchGenreGames(id);
@@ -208,6 +209,7 @@ const fetchGenreGames = function(genre){
     url: `https://api.rawg.io/api/games?key=${myAPI}&genres=${genre}`,
     method: "GET"
   }).then(function (res){
+    $("#load").css("display", "none");
     console.log(res);
     displayGameCard(res.results);
   });
