@@ -22,7 +22,7 @@ function displayGameCard(gameData) {
   gameData.forEach(function (game) {
     const gameCard = $(`
         <div class="game-card d-flex-col">
-            <img class="game-card__image" src="${
+            <img class="game-card__img" src="${
               game.background_image
             }" alt="game-image">
             <div class="game-card__content d-flex-col">
