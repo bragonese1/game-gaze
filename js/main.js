@@ -3,17 +3,19 @@ const openMenuToggle = $(".menu-toggle");
 const closeMenuToggle = $(".menu-toggle__btn-close");
 const gameCardContainer = $(".game-card-container");
 const gameSearchInput = $("#game-search-input");
+const sectionTitle = $("#section-title");
+const genreList = $(".genre-list");
 // const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
 // game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
 // NO NEED TO REPLACE A BLANK SPACE
 // id:716864
 $.ajax({
-  // games?key=${API_KEY}&search=${query}
-  url: `https://api.rawg.io/api/games?key=${myAPI}`,
+  url: `https://api.rawg.io/api/games?key=${myAPI}&metacritic=80,100`,
   method: "GET",
 }).then(function (res) {
   $("#load").css("display", "none");
+  sectionTitle.text("Top Games");
   console.log(res);
   displayGameCard(res.results);
 });
@@ -143,6 +145,11 @@ gameSearchInput.on("keyup", function () {
   }
 });
 
+/**
+ * listGamesSearch list all possible games based on given input from users
+ * 
+ * @param {string} input data that user enter in the text box
+ */
 const listGamesSearch = function (input) {
   console.log(input);
   const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=${input}}`;
