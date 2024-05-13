@@ -2,6 +2,8 @@ const myAPI = "84df1d68ff654bf6908d821f0a3cc225";
 const openMenuToggle = $(".menu-toggle");
 const closeMenuToggle = $(".menu-toggle__btn-close");
 const gameCardContainer = $(".game-card-container");
+const gameSearchInput = $("#game-search-input");
+// const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
 // game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
 // NO NEED TO REPLACE A BLANK SPACE
@@ -21,15 +23,14 @@ $.ajax({
  * 
  * @param {object} gameData 
  */
-function displayGameCard(gameData) {
+const displayGameCard = function (gameData) {
   gameCardContainer.empty();
   // working on game platforms and game genres
   gameData.forEach(function (game) {
     const gameCard = $(`
         <div class="game-card d-flex-col">
-            <img class="game-card__img" src="${
-              game.background_image
-            }" alt="game-image">
+            <img class="game-card__img" src="${game.background_image
+      }" alt="game-image">
             <div class="game-card__content d-flex-col">
                 <ul class="list game-card__platforms d-flex-row">
                  ${displayPlatformList(game.platforms)}
@@ -75,7 +76,7 @@ function displayGameCard(gameData) {
  * @param {array} platforms a list platform of a game
  * @returns a list of li elements containing game platforms of a particular game
  */
-function displayPlatformList(platforms) {
+const displayPlatformList = function (platforms) {
   var platformContainer = [];
   const visitedPlatform = [false, false, false, false, false, false];
   for (let platform of platforms) {
@@ -125,6 +126,46 @@ function displayPlatformList(platforms) {
     }
   }
   return platformContainer.join("");
+}
+
+// $.ajax({
+//   url: urlSearchGame,
+//   method:"GET"
+// }).then(function(res){
+//   console.log(res);
+// });
+gameSearchInput.on("keyup", function () {
+  let input = gameSearchInput.val().trim();
+  if (input.length > 1) {
+    listGamesSearch(input);
+  } else {
+    $("#game-search-list").empty();
+  }
+});
+
+const listGamesSearch = function (input) {
+  console.log(input);
+  const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=${input}}`;
+  $.ajax({
+    url: urlSearchGame,
+    method: "GET",
+    data: { query: input },
+    success: function (res) {
+      // console.log(res.results);
+      $("#game-search-list").empty();
+      res.results.forEach(function (game) {
+        console.log(game);
+        const item = $(`
+        <li class="list-item" id=${game.id}>
+          ${game.name}
+        </li>`);
+        $("#game-search-list").append(item);
+      });
+    },
+    error: function (xhr, status, error) {
+      console.log("Error", error);
+    }
+  })
 }
 
 const openNav = function () {
