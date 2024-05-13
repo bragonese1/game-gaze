@@ -22,7 +22,9 @@ function displayGameCard(gameData) {
   gameData.forEach(function (game) {
     const gameCard = $(`
         <div class="game-card d-flex-col">
-            <img class="game-card__image" src="${game.background_image}" alt="game-image">
+            <img class="game-card__image" src="${
+              game.background_image
+            }" alt="game-image">
             <div class="game-card__content d-flex-col">
                 <ul class="list game-card__platforms d-flex-row">
                  ${displayPlatformList(game.platforms)}
@@ -42,28 +44,67 @@ function displayGameCard(gameData) {
             <p class="game-card__brief-info__content">${game.rating}</p>
             </li>
             </ul>
+            <div class="game-card__explore d-flex-row">
+                <a href="#" class="link">EXPLORE MORE</a>
+                <p>></p>
+            </div>
+            </div>
         </div>
         `);
     gameCardContainer.append(gameCard);
   });
 }
 
+// 0: PC 1: PlayStation 2: Xbox 3: macOS 4: Nintendo 5: Android
 function displayPlatformList(platforms) {
-    var platformContainer = []
+  var platformContainer = [];
+  const visitedPlatform = [false, false, false, false, false, false];
   for (let platform of platforms) {
-    if (platform.platform.name === "PC")
-      platformContainer.push(`<li class="list-item"><img src="./images/windows.png" class="platform-icon"></li>`);
-    else if (platform.platform.name.split(" ")[0] === "PlayStation")
-      platformContainer.push(`<li class="list-item"><img src="./images/playstation.png" class="platform-icon"></li>`);
-    else if (platform.platform.name.split(" ")[0] === "Xbox")
-      platformContainer.push(`<li class="list-item"><img src="./images/xbox-logo.png" class="platform-icon"></li>`);
-    else if (platform.platform.name.split(" ")[0] === "macOS")
-      platformContainer.push(`<li class="list-item"><img src="./images/mac-os-logo.png" class="platform-icon"></li>`);
-    else if (platform.platform.name.split(" ")[0] === "Nintendo")
-      platformContainer.push(`<li class="list-item"><div class="platform-icon__nintendo">N</div></li>`);
-    else
-      platformContainer.push(`<li class="list-item"><img src="./images/android-logo.png" class="platform-icon"></li>`);
-  } 
+    if (platform.platform.name === "PC" && !visitedPlatform[0]) {
+      platformContainer.push(
+        `<li class="list-item"><img src="./images/windows.png" class="platform-icon"></li>`
+      );
+      visitedPlatform[0] = true;
+    } else if (
+      platform.platform.name.split(" ")[0] === "PlayStation" &&
+      !visitedPlatform[1]
+    ) {
+      platformContainer.push(
+        `<li class="list-item"><img src="./images/playstation.png" class="platform-icon"></li>`
+      );
+      visitedPlatform[1] = true;
+    } else if (
+      platform.platform.name.split(" ")[0] === "Xbox" &&
+      !visitedPlatform[2]
+    ) {
+      platformContainer.push(
+        `<li class="list-item"><img src="./images/xbox-logo.png" class="platform-icon"></li>`
+      );
+      visitedPlatform[2] = true;
+    } else if (
+      platform.platform.name.split(" ")[0] === "macOS" &&
+      !visitedPlatform[3]
+    ) {
+      platformContainer.push(
+        `<li class="list-item"><img src="./images/mac-os-logo.png" class="platform-icon"></li>`
+      );
+      visitedPlatform[3] = true;
+    } else if (
+      platform.platform.name.split(" ")[0] === "Nintendo" &&
+      !visitedPlatform[4]
+    ) {
+      platformContainer.push(
+        `<li class="list-item"><div class="platform-icon__nintendo">N</div></li>`
+      );
+      visitedPlatform[4] = true;
+    } else {
+      if (!visitedPlatform[5])
+        platformContainer.push(
+          `<li class="list-item"><img src="./images/android-logo.png" class="platform-icon"></li>`
+        );
+      visitedPlatform[5] = true;
+    }
+  }
   return platformContainer.join("");
 }
 
