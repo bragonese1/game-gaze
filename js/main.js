@@ -44,7 +44,7 @@ const displayGameCard = function (gameData) {
             </li>
             <li class="list-item d-flex-row justify-content-between">
             <p class="game-card__brief-info__title">Genres:</p>
-            <p class="game-card__brief-info__content">${game.genres[0].name}</p>
+            <p class="game-card__brief-info__content">${displayGenresList(game.genres)}</p>
             </li>
             <li class="list-item d-flex-row justify-content-between">
             <p class="game-card__brief-info__title">Chart:</p>
@@ -129,6 +129,16 @@ const displayPlatformList = function (platforms) {
   return platformContainer.join("");
 }
 
+// <p class="game-card__brief-info__content">${game.genres[0].name}</p>
+const displayGenresList = function (genres){
+  genresContainer = [];
+  for(genre of genres){
+    genresContainer.push(genre.name);
+  }
+
+  return genresContainer.join(", ");
+}
+
 // $.ajax({
 //   url: urlSearchGame,
 //   method:"GET"
@@ -193,7 +203,7 @@ genreList.on("click", ".btn", function(event){
   id = id.split("-")[1];
   gameCardContainer.empty();
   $("#load").css("display", "block");
-  sectionTitle.text("")
+  sectionTitle.text(`${id[0].toUpperCase() + id.slice(1)} Games`);
   console.log(id);
   fetchGenreGames(id);
 });
