@@ -452,6 +452,8 @@ input:focus {
   overflow-y: auto;
 }
 
+
+
 @media screen and (min-width: 1024px) {
   header {
     position: fixed;
@@ -463,6 +465,10 @@ input:focus {
   .header-top {
     flex-direction: column;
     align-items: start;
+  }
+
+  header::-webkit-scrollbar{
+    display: none;  
   }
 
   .game-search {

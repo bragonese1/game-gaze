@@ -26,39 +26,41 @@ $.ajax({
  * 
  * @param {object} gameData 
  */
-const displayGameCard = function (gameData) {  
+const displayGameCard = function (gameData) {
   // working on game platforms and game genres
   gameData.forEach(function (game) {
+    // const url = fetchGameWebsite(game.id);
+    // console.log(url);
     const gameCard = $(`
         <div class="game-card d-flex-col">
-            <img class="game-card__img" src="${game.background_image
-      }" alt="game-image">
+            <img class="game-card__img" src="${game.background_image}" alt="game-image">
             <div class="game-card__content d-flex-col">
                 <ul class="list game-card__platforms d-flex-row">
                  ${displayPlatformList(game.platforms)}
                 </ul>
             <h2 class="game-card__title">${game.name}</h2>
             <ul class="list game-card__brief-info">
-            <li class="list-item d-flex-row justify-content-between">
-            <p class="game-card__brief-info__title">Release Date:</p>
-            <p class="game-card__brief-info__content">${game.released}</p>
-            </li>
-            <li class="list-item d-flex-row justify-content-between">
-            <p class="game-card__brief-info__title">Genres:</p>
-            <p class="game-card__brief-info__content">${displayGenresList(game.genres)}</p>
-            </li>
-            <li class="list-item d-flex-row justify-content-between">
-            <p class="game-card__brief-info__title">Chart:</p>
-            <p class="game-card__brief-info__content">${game.rating}</p>
-            </li>
+              <li class="list-item d-flex-row justify-content-between">
+                <p class="game-card__brief-info__title">Release Date:</p>
+                <p class="game-card__brief-info__content">${game.released}</p>
+              </li>
+              <li class="list-item d-flex-row justify-content-between">
+                <p class="game-card__brief-info__title">Genres:</p>
+                <p class="game-card__brief-info__content">${displayGenresList(game.genres)}</p>
+              </li>
+              <li class="list-item d-flex-row justify-content-between">
+                <p class="game-card__brief-info__title">Chart:</p>
+                <p class="game-card__brief-info__content">${game.rating}</p>
+              </li>
             </ul>
             <div class="game-card__explore d-flex-row">
-                <a href="#" class="link">EXPLORE MORE</a>
+                <a id="${game.id}" class="link" target="_blank">EXPLORE MORE</a>
                 <p>></p>
             </div>
             </div>
         </div>
         `);
+    fetchGameWebsite(game.id);
     gameCardContainer.append(gameCard);
   });
 }
@@ -131,9 +133,9 @@ const displayPlatformList = function (platforms) {
 }
 
 // <p class="game-card__brief-info__content">${game.genres[0].name}</p>
-const displayGenresList = function (genres){
+const displayGenresList = function (genres) {
   genresContainer = [];
-  for(genre of genres){
+  for (genre of genres) {
     genresContainer.push(genre.name);
   }
 
@@ -191,15 +193,8 @@ const listGamesSearch = function (input) {
 // 7, 8, 9, 13: nintendo switch, nintendo 3DS + DS + DSi
 // 21: android
 // 5: macOS
-// $.ajax({
-//   // url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platform}`
-//   url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
-//   method: "GET"
-// }).then(function (res){
-//   console.log(res);
-// });
 
-platformList.on("click", ".btn", function(event){
+platformList.on("click", ".btn", function (event) {
   let id = $(event.target).attr("id");
   $("#menu").removeClass("open").addClass("closed");
   gameCardContainer.empty();
@@ -208,19 +203,20 @@ platformList.on("click", ".btn", function(event){
   fetchPlatformGames(id);
 });
 
-function fetchPlatformGames(platform){
-  const platformIdArray = ["4", "187, 18, 16, 15, 27", 
-                           "1, 186, 14, 80", "5", "7, 8, 9, 13", "21"];
+
+function fetchPlatformGames(platform) {
+  const platformIdArray = ["4", "187, 18, 16, 15, 27",
+    "1, 186, 14, 80", "5", "7, 8, 9, 13", "21"];
   let platformId = 0;
-  if(platform === "pc"){
+  if (platform === "pc") {
     platformId = 0;
-  } else if(platform === "xbox"){
+  } else if (platform === "xbox") {
     platformId = 2;
-  } else if(platform === "playstation"){
+  } else if (platform === "playstation") {
     platformId = 1;
-  } else if(platform === "macos"){
+  } else if (platform === "macos") {
     platformId = 3;
-  } else if(platform === "nintendo"){
+  } else if (platform === "nintendo") {
     platformId = 4;
   } else {
     platformId = 5;
@@ -229,14 +225,14 @@ function fetchPlatformGames(platform){
     url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platformIdArray[platformId]}`,
     // url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
     method: "GET"
-  }).then(function (res){
+  }).then(function (res) {
     $("#load").css("display", "none");
     console.log(res);
-    displayGameCard(res.results);   
+    displayGameCard(res.results);
   });
 }
 
-genreList.on("click", ".btn", function(event){
+genreList.on("click", ".btn", function (event) {
   let id = $(event.target).attr("id");
   $("#menu").removeClass("open").addClass("closed");
   id = id.split("-")[1];
@@ -253,14 +249,26 @@ genreList.on("click", ".btn", function(event){
  * 
  * @param {string} genre game
  */
-const fetchGenreGames = function(genre){
+const fetchGenreGames = function (genre) {
   $.ajax({
     url: `https://api.rawg.io/api/games?key=${myAPI}&genres=${genre}`,
     method: "GET"
-  }).then(function (res){
+  }).then(function (res) {
     $("#load").css("display", "none");
     console.log(res);
     displayGameCard(res.results);
+  });
+}
+
+const fetchGameWebsite = function (gameId) {
+  const link = $("a");
+  $.ajax({
+    url: `https://api.rawg.io/api/games/${gameId}?key=${myAPI}`,
+    method: "GET"
+  }).then(function (res) {
+    console.log(res.website);
+    link.attr("href", `${res.website}`);
+    // return res.website;
   });
 }
 
