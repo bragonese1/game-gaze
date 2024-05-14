@@ -5,6 +5,7 @@ const gameCardContainer = $(".game-card-container");
 const gameSearchInput = $("#game-search-input");
 const sectionTitle = $("#section-title");
 const genreList = $(".genre-list");
+const platformList = $(".platforms-list");
 // const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
 // game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
@@ -197,6 +198,43 @@ const listGamesSearch = function (input) {
 // }).then(function (res){
 //   console.log(res);
 // });
+
+platformList.on("click", ".btn", function(event){
+  let id = $(event.target).attr("id");
+  $("#menu").removeClass("open").addClass("closed");
+  gameCardContainer.empty();
+  $("#load").css("display", "block"); // for loading function 
+  sectionTitle.text(`${id.toUpperCase()} PLATFORM`);
+  fetchPlatformGames(id);
+});
+
+function fetchPlatformGames(platform){
+  const platformIdArray = ["4", "187, 18, 16, 15, 27", 
+                           "1, 186, 14, 80", "5", "7, 8, 9, 13", "21"];
+  let platformId = 0;
+  if(platform === "pc"){
+    platformId = 0;
+  } else if(platform === "xbox"){
+    platformId = 2;
+  } else if(platform === "playstation"){
+    platformId = 1;
+  } else if(platform === "macos"){
+    platformId = 3;
+  } else if(platform === "nintendo"){
+    platformId = 4;
+  } else {
+    platformId = 5;
+  }
+  $.ajax({
+    url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platformIdArray[platformId]}`,
+    // url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
+    method: "GET"
+  }).then(function (res){
+    $("#load").css("display", "none");
+    console.log(res);
+    displayGameCard(res.results);   
+  });
+}
 
 genreList.on("click", ".btn", function(event){
   let id = $(event.target).attr("id");
