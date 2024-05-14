@@ -19,6 +19,7 @@ $.ajax({
   sectionTitle.text("Top Games");
   console.log(res);
   displayGameCard(res.results);
+  addGameWebsite(res.results);
 });
 
 /**
@@ -60,7 +61,7 @@ const displayGameCard = function (gameData) {
             </div>
         </div>
         `);
-    fetchGameWebsite(game.id);
+    // fetchGameWebsite(game.id);
     gameCardContainer.append(gameCard);
   });
 }
@@ -260,15 +261,22 @@ const fetchGenreGames = function (genre) {
   });
 }
 
+const addGameWebsite = function (gameData){
+  for(game of gameData){
+    // console.log(game.id);
+    fetchGameWebsite(game.id);
+  }
+}
+
 const fetchGameWebsite = function (gameId) {
-  const link = $("a");
+  // const link = $("a");
+  const link = $(`#${gameId}`);
   $.ajax({
     url: `https://api.rawg.io/api/games/${gameId}?key=${myAPI}`,
     method: "GET"
   }).then(function (res) {
-    console.log(res.website);
+    // console.log(res.website);
     link.attr("href", `${res.website}`);
-    // return res.website;
   });
 }
 
