@@ -191,7 +191,7 @@ const listGamesSearch = function (input) {
 // 21: android
 // 5: macOS
 // $.ajax({
-//   // url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platfor}`
+//   // url: `https://api.rawg.io/api/games?key=${myAPI}&platforms=${platform}`
 //   url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
 //   method: "GET"
 // }).then(function (res){
@@ -200,6 +200,7 @@ const listGamesSearch = function (input) {
 
 genreList.on("click", ".btn", function(event){
   let id = $(event.target).attr("id");
+  $("#menu").removeClass("open").addClass("closed");
   id = id.split("-")[1];
   gameCardContainer.empty();
   $("#load").css("display", "block");
