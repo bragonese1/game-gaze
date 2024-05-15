@@ -191,10 +191,11 @@ const listGamesSearch = function (input) {
       res.results.forEach(function (game) {
         console.log(game);
         const item = $(`
-        <li class="list-item" id=${game.id}>
-          ${game.name}
+        <li class="list-item">
+          <a id=${game.id} class="link" target="_blank">${game.name}</a>
         </li>`);
         $("#game-search-list").append(item);
+        // addGameWebsite(res.results);
       });
     },
     error: function (xhr, status, error) {
