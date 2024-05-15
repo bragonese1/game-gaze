@@ -6,18 +6,21 @@ const gameSearchInput = $("#game-search-input");
 const sectionTitle = $("#section-title");
 const genreList = $(".genre-list");
 const platformList = $(".platforms-list");
+let pageNum = 1;
+let isFetching = false;
 // const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
 // game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
 // NO NEED TO REPLACE A BLANK SPACE
 // id:716864
 $.ajax({
-  url: `https://api.rawg.io/api/games?key=${myAPI}&metacritic=80,100`,
+  url: `https://api.rawg.io/api/games?key=${myAPI}`,
   method: "GET",
 }).then(function (res) {
   $("#load").css("display", "none");
   sectionTitle.text("Top Games");
-  console.log(res);
+  // console.log(res);
+  pageNum++;
   displayGameCard(res.results);
   addGameWebsite(res.results);
 });
@@ -196,6 +199,7 @@ const listGamesSearch = function (input) {
 // 5: macOS
 
 platformList.on("click", ".btn", function (event) {
+  pageNum = 2;
   let id = $(event.target).attr("id");
   $("#menu").removeClass("open").addClass("closed");
   gameCardContainer.empty();
@@ -234,6 +238,7 @@ function fetchPlatformGames(platform) {
 }
 
 genreList.on("click", ".btn", function (event) {
+  pageNum = 2;
   let id = $(event.target).attr("id");
   $("#menu").removeClass("open").addClass("closed");
   id = id.split("-")[1];
@@ -256,18 +261,23 @@ const fetchGenreGames = function (genre) {
     method: "GET"
   }).then(function (res) {
     $("#load").css("display", "none");
-    console.log(res);
+    // console.log(res);
     displayGameCard(res.results);
   });
 }
 
-const addGameWebsite = function (gameData){
-  for(game of gameData){
+const addGameWebsite = function (gameData) {
+  for (game of gameData) {
     // console.log(game.id);
     fetchGameWebsite(game.id);
   }
 }
 
+/**
+ * 
+ * 
+ * @param {string} gameId of a game
+ */
 const fetchGameWebsite = function (gameId) {
   // const link = $("a");
   const link = $(`#${gameId}`);
@@ -275,8 +285,30 @@ const fetchGameWebsite = function (gameId) {
     url: `https://api.rawg.io/api/games/${gameId}?key=${myAPI}`,
     method: "GET"
   }).then(function (res) {
+    // console.log(res);
     // console.log(res.website);
     link.attr("href", `${res.website}`);
+  });
+}
+
+$(window).on("scroll", function () {
+  if (isFetching) return;
+
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+    fetchMoreGames();
+  }
+});
+
+const fetchMoreGames = function () {
+  isFetching = true;
+  $.ajax({
+    url: `https://api.rawg.io/api/games?key=${myAPI}&page=${pageNum}`,
+    method: "GET",
+  }).then(function (res) {
+    pageNum++;
+    displayGameCard(res.results);
+    addGameWebsite(res.results);
+    isFetching = false;
   });
 }
 
