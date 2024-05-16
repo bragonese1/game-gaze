@@ -46,7 +46,9 @@ Our website, GAME-GAZE, is a comprehensive video game search platform accessible
 ## screenshot-fullsize
 
 ![ezgif com-animated-gif-maker (1)](https://github.com/bragonese1/game-gaze/assets/148402227/4a5ea3b3-69bc-4d42-8593-2bcf78960ec2)
-##screenshot-tablet
+
+## screenshot-tablet
+
 ![ezgif com-animated-gif-maker (3)](https://github.com/bragonese1/game-gaze/assets/148402227/27587f8d-cf19-487f-b55d-ba31f2b2756e)
 
 ## screenshot-phone/handheld
