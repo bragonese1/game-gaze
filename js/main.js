@@ -1,4 +1,4 @@
-const myAPI = "84df1d68ff654bf6908d821f0a3cc225";
+const myAPI = "0ad8ee69b6eb4ce38d9a22cbf92178f3";
 const openMenuToggle = $(".menu-toggle");
 const closeMenuToggle = $(".menu-toggle__btn-close");
 const gameCardContainer = $(".game-card-container");
@@ -23,7 +23,7 @@ $.ajax({
 }).then(function (res) {
   $("#load").css("display", "none");
   sectionTitle.text("Top Games");
-  if(res.next) nextPage = res.next;
+  if (res.next) nextPage = res.next;
   // console.log(res);
   displayGameCard(res.results);
   addGameWebsite(res.results);
@@ -34,7 +34,7 @@ $.ajax({
  * THEN system will deploy more games
  */
 $(window).on("scroll", function () {
-  if (isFetching || isGameDetailOn) return;  
+  if (isFetching || isGameDetailOn) return;
 
   // console.log(Math.ceil(window.innerHeight + window.scrollY));
   // console.log(document.body.offsetHeight);
@@ -264,7 +264,7 @@ const fetchPlatformGames = function (platform) {
     // url: `https://api.rawg.io/api/platforms?key=${myAPI}`,
     method: "GET"
   }).then(function (res) {
-    if(res.next) nextPage = res.next;
+    if (res.next) nextPage = res.next;
     $("#load").css("display", "none");
     console.log(res);
     displayGameCard(res.results);
@@ -282,7 +282,7 @@ const fetchGenreGames = function (genre) {
     method: "GET"
   }).then(function (res) {
     console.log(res);
-    if(res.next) nextPage = res.next;
+    if (res.next) nextPage = res.next;
     $("#load").css("display", "none");
     // console.log(res);
     displayGameCard(res.results);
@@ -331,12 +331,12 @@ const fetchGameWebsite = function (gameId) {
 const fetchMoreGames = function () {
   isFetching = true;
   console.log(nextPage);
-  if(nextPage == null) return;
+  if (nextPage == null) return;
   $.ajax({
     url: nextPage,
     method: "GET",
   }).then(function (res) {
-    if(res.next) nextPage = res.next;
+    if (res.next) nextPage = res.next;
     else nextPage = null;
     displayGameCard(res.results);
     addGameWebsite(res.results);
@@ -344,7 +344,7 @@ const fetchMoreGames = function () {
   });
 }
 
-$(document).on("click", ".explore", function(event){
+$(document).on("click", ".explore", function (event) {
   isGameDetailOn = true;
   gameDetail.empty();
   gameSearchInput.val("");
@@ -353,17 +353,17 @@ $(document).on("click", ".explore", function(event){
   fetchGameDetail(gameId)
 });
 
-const fetchGameDetail = function(gameId){
+const fetchGameDetail = function (gameId) {
   $.ajax({
     url: `https://api.rawg.io/api/games/${gameId}?key=${myAPI}`,
     method: "GET"
-  }).then(function (res){
+  }).then(function (res) {
     console.log(res);
     displayGameDetail(res);
   });
 }
 
-const displayGameDetail = function(gameData){ 
+const displayGameDetail = function (gameData) {
   sectionTitle.text("");
   gameCardContainer.empty();
   console.log(gameData);
@@ -392,10 +392,10 @@ const displayGameDetail = function(gameData){
           <p class="text-color-secondary text-bold">Platforms</p>
           <ul class="list">
               <li class="list-item">
-                  <p class="text-size-142">OS: Windows</p>
+                  <p class="text-size-142">OS: ${getOS(gameData.platforms)}</p>
               </li>
               <li class="list-item">
-                  <p class="text-size-142">PlayStations: 3, 4, 5</p>
+                  <p class="text-size-142">PlayStations: ${getPSSeries(gameData.platforms)}</p>
               </li>
               <li class="list-item">
                   <p class="text-size-142">Xbox: One</p>
@@ -412,7 +412,7 @@ const displayGameDetail = function(gameData){
   </div>
   <div class="mb-3">
       <p class="text-color-secondary text-bold">website</p>
-      <a href="${gameData.website.length != 0 ? gameData.website : "#"}" class="link text-size-142 text-color-primary" target="_blank">${gameData.website.length != 0 ? "Website" : "N/A"}</a>
+      <a href="${gameData.website.length != 0 ? gameData.website : "#"}" class="link text-size-142 text-color-primary" target="_blank">${gameData.website.length != 0 ? `${gameData.website}` : "N/A"}</a>
   </div>
 </div>
   `);
@@ -421,14 +421,39 @@ const displayGameDetail = function(gameData){
 }
 
 
-const getDevelopers = function (developers){
+const getDevelopers = function (developers) {
   const developersArr = [];
   console.log(developers);
-  for(dev of developers){
+  for (dev of developers) {
     developersArr.push(dev.name);
   }
 
   return developersArr.join(", ");
+}
+
+const getOS = function (platforms) {
+  // console.log(platforms);
+  const arr = [];
+  for (platform of platforms) {
+    if (platform.platform.name == "PC")
+      arr.push("Windows");
+    else if (platform.platform.name == "macOS")
+      arr.push("mac OS");
+  }
+
+  if (arr.length > 0) return arr.join(", ");
+  return "N/A";
+}
+
+const getPSSeries = function (platforms){
+  const arr = [];
+  for(platform of platforms){
+    console.log(platform.platform.name.split(" ")[0] == "PlayStation");
+    if(platform.platform.name.split(" ")[0] == "PlayStation")
+      arr.push(platform.platform.name);
+  }
+
+  return arr.lnegth > 0 ? arr.join(", ") : "N/A";
 }
 
 const openNav = function () {
