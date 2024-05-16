@@ -12,10 +12,7 @@ const gameDetail = $(".game-detail");
 let nextPage = "";
 let isFetching = false;
 let isGameDetailOn = false;
-// const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
-// game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
-// NO NEED TO REPLACE A BLANK SPACE
 // id:716864
 $.ajax({
   url: `https://api.rawg.io/api/games?key=${myAPI}`,
@@ -36,9 +33,6 @@ $.ajax({
 $(window).on("scroll", function () {
   if (isFetching || isGameDetailOn) return;
 
-  // console.log(Math.ceil(window.innerHeight + window.scrollY));
-  // console.log(document.body.offsetHeight);
-
   if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
     fetchMoreGames();
   }
@@ -50,10 +44,7 @@ $(window).on("scroll", function () {
  * @param {object} gameData 
  */
 const displayGameCard = function (gameData) {
-  // working on game platforms and game genres
   gameData.forEach(function (game) {
-    // const url = fetchGameWebsite(game.id);
-    // console.log(url);
     const gameCard = $(`
         <div class="game-card d-flex-col">
             <img class="game-card__img" src="${game.background_image}" alt="game-image">
@@ -155,7 +146,6 @@ const displayPlatformList = function (platforms) {
   return platformContainer.join("");
 }
 
-// <p class="game-card__brief-info__content">${game.genres[0].name}</p>
 const displayGenresList = function (genres) {
   genresContainer = [];
   for (genre of genres) {
@@ -165,12 +155,6 @@ const displayGenresList = function (genres) {
   return genresContainer.join(", ");
 }
 
-// $.ajax({
-//   url: urlSearchGame,
-//   method:"GET"
-// }).then(function(res){
-//   console.log(res);
-// });
 gameSearchInput.on("keyup", function () {
   let input = gameSearchInput.val().trim();
   if (input.length > 1) {
@@ -310,11 +294,6 @@ const addGameWebsite = function (gameData) {
   }
 }
 
-/**
- * 
- * 
- * @param {string} gameId of a game
- */
 const fetchGameWebsite = function (gameId) {
   // const link = $("a");
   const link = $(`#${gameId}`);
@@ -425,7 +404,7 @@ const displayGameDetail = function (gameData) {
   gameDetail.append(gameDeTailContainer);
 }
 
-
+/** HELPER METHODS **/
 const getDevelopers = function (developers) {
   const developersArr = [];
   console.log(developers);
