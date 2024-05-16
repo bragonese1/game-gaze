@@ -477,7 +477,6 @@ input:focus {
 
 .overlay-content {
   display: flex;
-  justify-content: space-between;
   position: relative;
   top: 5%;
   width: 100%;
