@@ -4,6 +4,8 @@
 Our website is called GAME-GAZE, It's a Video game search website, and it works on your computer, tablet and phone. And its purpose is to be able to search up any video game and give
 you all the details on the game. Such as what platforms its playable on, a discription of what the game is about, the devlopers who made the game, and the genre of the game. And 
 ontop of all this we also have a clickable Explore more link that will take you to a page that has everything about the game in greater detail.
+##technologies-used 
+RAWG-API
 ##screenshot-fullsize
 ![ezgif com-animated-gif-maker (1)](https://github.com/bragonese1/game-gaze/assets/148402227/4a5ea3b3-69bc-4d42-8593-2bcf78960ec2)
 ##screenshot-tablet
