@@ -8,5 +8,5 @@ ontop of all this we also have a clickable Explore more link that will take you 
 ![ezgif com-animated-gif-maker (1)](https://github.com/bragonese1/game-gaze/assets/148402227/4a5ea3b3-69bc-4d42-8593-2bcf78960ec2)
 ##screenshot-tablet
 ![ezgif com-animated-gif-maker (3)](https://github.com/bragonese1/game-gaze/assets/148402227/27587f8d-cf19-487f-b55d-ba31f2b2756e)
-#screenshot-phone/handheld
+##screenshot-phone/handheld
 ![ezgif com-animated-gif-maker (4)](https://github.com/bragonese1/game-gaze/assets/148402227/dcf216a1-f080-4646-b875-67879076d0f9)
