@@ -142,6 +142,11 @@ h4 {
   color: white;
 }
 
+/* EXPLORE */
+.explore:hover{
+  cursor: pointer;
+}
+
 /* LOGO */
 .logo {
   width: 50px;
@@ -544,8 +549,10 @@ input:focus {
 
 .game-detail__img{
   width: 100%;
-  height: 150px;
-  background-color: tomato;
+  height: 50vw;
+  background-size: cover;
+  border-radius: 20px;
+  /* background-color: tomato; */
 }
 
 .game-detail__header{
@@ -553,8 +560,12 @@ input:focus {
 }
 
 /* need add more space @screen 1024px */
-.game-detail__creator{
+/* .game-detail__creator{
   max-width: 92px;
+} */
+
+.game-detail__creator p:last-child{
+  margin-left: 3px;
 }
 
 /* need add more space @screen 1024px */
@@ -577,12 +588,18 @@ input:focus {
     font-size: 1.7rem;
   }
 
-  .game-detail__creator{
+  /* .game-detail__creator{
     max-width: 110px;
-  }
+  } */
 
   .game-detail__published-date{
     max-width: 186px;
+  }
+
+  .game-detail__img{
+    height: 30vw;
+    max-height: 550px;
+    max-width: 1500px;
   }
 }
 

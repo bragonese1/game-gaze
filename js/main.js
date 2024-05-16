@@ -6,9 +6,12 @@ const gameSearchInput = $("#game-search-input");
 const sectionTitle = $("#section-title");
 const genreList = $(".genre-list");
 const platformList = $(".platforms-list");
+const exlore = $(".explore");
+const gameDetail = $(".game-detail");
 
 let nextPage = "";
 let isFetching = false;
+let isGameDetailOn = false;
 // const urlSearchGame = `https://api.rawg.io/api/games?key=${myAPI}&search=dynasty warriors`;
 
 // game search url: url: `https://api.rawg.io/api/games?key=${myAPI}&search={game-name}}`
@@ -26,8 +29,12 @@ $.ajax({
   addGameWebsite(res.results);
 });
 
+/**
+ * WHEN users scroll down and reach the end of the page
+ * THEN system will deploy more games
+ */
 $(window).on("scroll", function () {
-  if (isFetching) return;  
+  if (isFetching || isGameDetailOn) return;  
 
   // console.log(Math.ceil(window.innerHeight + window.scrollY));
   // console.log(document.body.offsetHeight);
@@ -70,7 +77,7 @@ const displayGameCard = function (gameData) {
               </li>
             </ul>
             <div class="game-card__explore d-flex-row">
-                <a id="${game.id}" class="link" target="_blank">EXPLORE MORE</a>
+                <div id="${game.id}" class="explore">EXPLORE MORE</div>
                 <p>></p>
             </div>
             </div>
@@ -192,7 +199,7 @@ const listGamesSearch = function (input) {
         console.log(game);
         const item = $(`
         <li class="list-item">
-          <a id=${game.id} class="link" target="_blank">${game.name}</a>
+          <div id=${game.id} class="explore">${game.name}</div>
         </li>`);
         $("#game-search-list").append(item);
         // addGameWebsite(res.results);
@@ -212,7 +219,8 @@ const listGamesSearch = function (input) {
 // 5: macOS
 
 platformList.on("click", ".btn", function (event) {
-
+  isGameDetailOn = false;
+  gameDetail.empty();
   let id = $(event.target).attr("id");
   $("#menu").removeClass("open").addClass("closed");
   gameCardContainer.empty();
@@ -221,8 +229,20 @@ platformList.on("click", ".btn", function (event) {
   fetchPlatformGames(id);
 });
 
-
-function fetchPlatformGames(platform) {
+/**
+ * fetchPlatformGames fetch games based on platform
+ * platformIdArray contains all possible id of a platform. Since one platform
+ * can have more than 1 serie, it can have miltiple id in the list
+ * [0] PC: 4
+ * [1] xbox: 187, 18, 16, 15, 27
+ * [2] ps: 1, 186, 14, 80
+ * [3] macOS: 5
+ * [4] nintendo: 7, 8, 9, 13
+ * [5] android: 21
+ * 
+ * @param {string} platform selected by users.
+ */
+const fetchPlatformGames = function (platform) {
   const platformIdArray = ["4", "187, 18, 16, 15, 27",
     "1, 186, 14, 80", "5", "7, 8, 9, 13", "21"];
   let platformId = 0;
@@ -251,19 +271,6 @@ function fetchPlatformGames(platform) {
   });
 }
 
-genreList.on("click", ".btn", function (event) {
-
-  let id = $(event.target).attr("id");
-  $("#menu").removeClass("open").addClass("closed");
-  id = id.split("-")[1];
-  gameCardContainer.empty();
-  $("#load").css("display", "block");
-  sectionTitle.text(`${id[0].toUpperCase() + id.slice(1)} Games`);
-  console.log(id);
-  fetchGenreGames(id);
-});
-
-
 /**
  * fetchGenreGames fetch data based on selected genre
  * 
@@ -281,6 +288,20 @@ const fetchGenreGames = function (genre) {
     displayGameCard(res.results);
   });
 }
+
+genreList.on("click", ".btn", function (event) {
+  isGameDetailOn = false;
+  gameDetail.empty();
+  let id = $(event.target).attr("id");
+  $("#menu").removeClass("open").addClass("closed");
+  id = id.split("-")[1];
+  gameCardContainer.empty();
+  $("#load").css("display", "block");
+  sectionTitle.text(`${id[0].toUpperCase() + id.slice(1)} Games`);
+  console.log(id);
+  fetchGenreGames(id);
+});
+
 
 const addGameWebsite = function (gameData) {
   for (game of gameData) {
@@ -321,6 +342,93 @@ const fetchMoreGames = function () {
     addGameWebsite(res.results);
     isFetching = false;
   });
+}
+
+$(document).on("click", ".explore", function(event){
+  isGameDetailOn = true;
+  gameDetail.empty();
+  gameSearchInput.val("");
+  $("#game-search-list").empty();
+  const gameId = $(event.target).attr("id");
+  fetchGameDetail(gameId)
+});
+
+const fetchGameDetail = function(gameId){
+  $.ajax({
+    url: `https://api.rawg.io/api/games/${gameId}?key=${myAPI}`,
+    method: "GET"
+  }).then(function (res){
+    console.log(res);
+    displayGameDetail(res);
+  });
+}
+
+const displayGameDetail = function(gameData){ 
+  sectionTitle.text("");
+  gameCardContainer.empty();
+  console.log(gameData);
+  gameDeTailContainer = $(`
+  <div class="game-detail__header d-flex-col">
+    <img class="game-detail__img" src="${gameData.background_image}">
+    <div class="p-1">
+        <h2 class="game-detail__title">${gameData.name}</h2>
+        <div class="d-flex-row game-detail__creator">
+            <p class="text-color-secondary text-bold">Developers:</p>
+            <p class="text-size-142">${getDevelopers(gameData.developers)}</p>
+        </div>
+        <div class="d-flex-row justify-content-between game-detail__published-date">
+            <p class="text-color-secondary text-bold">Published date:</p>
+            <p class="text-size-142">${gameData.released}</p>
+        </div>
+    </div>
+  </div>
+<div class="game-detail__body">
+  <div class="mb-1">
+      <p class="text-size-142 text-color-secondary text-bold">About</p>
+      <p>${gameData.description_raw}</p>
+  </div>
+  <div>
+      <div class="mb-1 game-detail__platforms">
+          <p class="text-color-secondary text-bold">Platforms</p>
+          <ul class="list">
+              <li class="list-item">
+                  <p class="text-size-142">OS: Windows</p>
+              </li>
+              <li class="list-item">
+                  <p class="text-size-142">PlayStations: 3, 4, 5</p>
+              </li>
+              <li class="list-item">
+                  <p class="text-size-142">Xbox: One</p>
+              </li>
+          </ul>
+      </div>
+      <div class="mb-1">
+          <p class="text-color-secondary text-bold">Genres:</p>
+          <ul class="list">
+              <li class="list-item text-size-142">Action</li>
+              <li class="list-item text-size-142">Shooter</li>
+          </ul>
+      </div>
+  </div>
+  <div class="mb-3">
+      <p class="text-color-secondary text-bold">website</p>
+      <a href="${gameData.website.length != 0 ? gameData.website : "#"}" class="link text-size-142 text-color-primary" target="_blank">${gameData.website.length != 0 ? "Website" : "N/A"}</a>
+  </div>
+</div>
+  `);
+
+  gameDetail.append(gameDeTailContainer);
+}
+
+
+const getDevelopers = function (developers){
+  const developersArr = [];
+  console.log(developers);
+  for(dev of developers){
+    developersArr.push(dev.name);
+  }
+
+  return developersArr.join(", ");
 }
 
 const openNav = function () {
