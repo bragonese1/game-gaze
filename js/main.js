@@ -398,21 +398,26 @@ const displayGameDetail = function (gameData) {
                   <p class="text-size-142">PlayStations: ${getPSSeries(gameData.platforms)}</p>
               </li>
               <li class="list-item">
-                  <p class="text-size-142">Xbox: One</p>
+                  <p class="text-size-142">Xbox: ${getXBoxSeries(gameData.platforms)}</p>
+              </li>
+              <li class="list-item">
+                  <p class="text-size-142">Nintendo: ${getNintendoSeries(gameData.platforms)}</p>
+              </li>
+              <li class="list-item">
+                  <p class="text-size-142">Others: ${getOtherPlatformSeries(gameData.platforms)}</p>
               </li>
           </ul>
       </div>
       <div class="mb-1">
           <p class="text-color-secondary text-bold">Genres:</p>
           <ul class="list">
-              <li class="list-item text-size-142">Action</li>
-              <li class="list-item text-size-142">Shooter</li>
+              ${getGeners(gameData.genres)}
           </ul>
       </div>
   </div>
   <div class="mb-3">
       <p class="text-color-secondary text-bold">website</p>
-      <a href="${gameData.website.length != 0 ? gameData.website : "#"}" class="link text-size-142 text-color-primary" target="_blank">${gameData.website.length != 0 ? `${gameData.website}` : "N/A"}</a>
+      <a href="${gameData.website.length != 0 ? gameData.website : "#"}" class="link text-color-primary" target="_blank">${gameData.website.length != 0 ? `${gameData.website}` : "N/A"}</a>
   </div>
 </div>
   `);
@@ -445,15 +450,54 @@ const getOS = function (platforms) {
   return "N/A";
 }
 
-const getPSSeries = function (platforms){
+const getPSSeries = function (platforms) {
   const arr = [];
-  for(platform of platforms){
+  for (platform of platforms) {
     console.log(platform.platform.name.split(" ")[0] == "PlayStation");
-    if(platform.platform.name.split(" ")[0] == "PlayStation")
+    if (platform.platform.name.split(" ")[0] == "PlayStation")
       arr.push(platform.platform.name);
   }
 
-  return arr.lnegth > 0 ? arr.join(", ") : "N/A";
+  return arr.length > 0 ? arr.join(", ") : "N/A";
+}
+const getXBoxSeries = function (platforms) {
+  const arr = [];
+  for (platform of platforms) {
+    if (platform.platform.name.split(" ")[0] == "Xbox")
+      arr.push(platform.platform.name);
+  }
+
+  return arr.length > 0 ? arr.join(", ") : "N/A";
+}
+
+const getNintendoSeries = function (platforms) {
+  const arr = [];
+  for (platform of platforms) {
+    if (platform.platform.name.split(" ")[0] == "Nintendo")
+      arr.push(platform.platform.name);
+  }
+
+  return arr.length > 0 ? arr.join(", ") : "N/A";
+}
+
+const getOtherPlatformSeries = function (platforms) {
+  const arr = [];
+  for (platform of platforms) {
+    const platformName = platform.platform.name.split(" ")[0];
+    if (platformName != "PC" && platformName != "Xbox" && platformName != "macOS" && platformName != "PlayStation" && platformName != "Nintendo")
+      arr.push(platform.platform.name);
+  }
+
+  return arr.length > 0 ? arr.join(", ") : "N/A";
+}
+
+const getGeners = function (genres){
+  const arr = [];
+  for(genre of genres){
+    arr.push(`<li class="list-item text-size-142">${genre.name}</li>`)
+  }
+
+  return arr.join("");
 }
 
 const openNav = function () {
