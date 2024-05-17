@@ -47,6 +47,11 @@ Our website, GAME-GAZE, is a comprehensive video game search platform accessible
 - https://github.com/bragonese1/game-gaze
 - https://bragonese1.github.io/game-gaze/
 
+## Technologies
+```md
+HTML, JQuery, CSS, and Server-Side APIs were used to create this website and GitHub was used for the deployment.
+```
+
 ## screenshot-fullsize
 
 ![ezgif com-animated-gif-maker (1)](https://github.com/bragonese1/game-gaze/assets/148402227/4a5ea3b3-69bc-4d42-8593-2bcf78960ec2)

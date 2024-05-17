@@ -13,6 +13,7 @@ let nextPage = "";
 let isFetching = false;
 let isGameDetailOn = false;
 
+
 // id:716864
 $.ajax({
   url: `https://api.rawg.io/api/games?key=${myAPI}`,
@@ -469,6 +470,7 @@ const getOtherPlatformSeries = function (platforms) {
 
   return arr.length > 0 ? arr.join(", ") : "N/A";
 }
+
 
 const getGeners = function (genres){
   const arr = [];
