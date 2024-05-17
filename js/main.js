@@ -13,11 +13,8 @@ let nextPage = "";
 let isFetching = false;
 let isGameDetailOn = false;
 
-<<<<<<< HEAD
-=======
 
 // id:716864
->>>>>>> 7da283a69848d23509733cd229568df92a61a2a8
 $.ajax({
   url: `https://api.rawg.io/api/games?key=${myAPI}`,
   method: "GET",
