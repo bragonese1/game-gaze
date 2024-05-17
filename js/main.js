@@ -186,6 +186,7 @@ const listGamesSearch = function (input) {
         </li>`);
         $("#game-search-list").append(item);
       });
+      localStorage.setItem("searchHistory", JSON.stringify(res));
     },
     error: function (xhr, status, error) {
       console.log("Error", error);
