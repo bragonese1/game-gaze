@@ -43,6 +43,10 @@ then they should be taken to a page with comprehensive details about the selecte
 ## Description
 Our website, GAME-GAZE, is a comprehensive video game search platform accessible on computers, tablets, and phones. It allows users to search for any video game and find detailed information, including playable platforms, game descriptions, developers, and genres. Additionally, we offer an "Explore More" link, which directs users to an in-depth page with extensive details about each game.
 
+## Links
+- https://github.com/bragonese1/game-gaze
+- https://bragonese1.github.io/game-gaze/
+
 ## screenshot-fullsize
 
 ![ezgif com-animated-gif-maker (1)](https://github.com/bragonese1/game-gaze/assets/148402227/4a5ea3b3-69bc-4d42-8593-2bcf78960ec2)
